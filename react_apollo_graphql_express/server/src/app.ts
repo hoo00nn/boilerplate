@@ -1,3 +1,4 @@
+import { ApolloServer, PubSub } from "apollo-server-express";
 import express, { Express } from "express";
 import { createServer, Server } from "http";
 import morgan from "morgan";
@@ -7,7 +8,11 @@ import dotenv from "dotenv";
 import compression from "compression";
 import cors, { CorsOptions } from "cors";
 
+import schema from "./config/schema";
+
 dotenv.config();
+
+const GRAPHQL_ENDPOINT = "/graphql";
 
 const prod = process.env.NODE_ENV === "production";
 
@@ -16,9 +21,19 @@ class App {
 
   public server: Server;
 
+  private pubsub: PubSub;
+
+  private apolloServer: ApolloServer;
+
   constructor() {
     this.app = express();
+    this.pubsub = new PubSub();
     this.server = createServer(this.app);
+    this.apolloServer = new ApolloServer({
+      schema,
+      context: (ctx) => ({ ...ctx, pubsub: this.pubsub }),
+      playground: true,
+    });
     this.middlewares();
   }
 
@@ -38,6 +53,12 @@ class App {
     }
     this.app.use(cors(corsOptions));
     this.app.use(compression());
+    this.apolloServer.applyMiddleware({
+      app: this.app,
+      path: GRAPHQL_ENDPOINT,
+      cors: corsOptions,
+    });
+    this.apolloServer.installSubscriptionHandlers(this.server);
   }
 }
 
