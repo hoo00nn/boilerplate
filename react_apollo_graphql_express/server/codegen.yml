@@ -1,0 +1,17 @@
+schema: src/api/**/*.graphql
+generates:
+  ./src/types/api.d.ts:
+    plugins:
+      - add:
+          content: "import { PubSub } from 'graphql-subscriptions';"
+      - add:
+          content: "import { Response, Request } from 'express';"
+      - typescript
+      - typescript-resolvers
+    config:
+      contextType: |
+        {
+          req: Request,
+          res: Response,
+          pubsub: PubSub
+        }
