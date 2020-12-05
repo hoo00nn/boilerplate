@@ -3,3 +3,4 @@
 */**/.env
 
 # react_apollo_graphql_express
+*/**/api.d.ts
