@@ -4,7 +4,10 @@
   "description": "apollo_graphql_express 환경설정 셋업",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node ./src/index.ts"
+    "predev": "npm run types",
+    "prestart": "npm run types",
+    "dev": "nodemon --exec ts-node ./src/index.ts",
+    "types": "graphql-codegen"
   },
   "keywords": [],
   "author": "",
@@ -21,12 +24,16 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "^2.0.2",
+    "@graphql-codegen/cli": "^1.19.4",
+    "@graphql-codegen/typescript": "^1.19.0",
+    "@graphql-codegen/typescript-resolvers": "^1.18.0",
+    "@types/compression": "^1.7.0",
+    "@types/hpp": "^0.2.1",
+    "@types/morgan": "^1.9.2",
     "dotenv": "^8.2.0",
     "nodemon": "^2.0.6",
     "ts-node": "^9.1.0",
-    "typescript": "^4.1.2",
-    "@types/compression": "^1.7.0",
-    "@types/hpp": "^0.2.1",
-    "@types/morgan": "^1.9.2"
+    "typescript": "^4.1.2"
   }
 }
