@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "apollo_graphql_express 환경설정 셋업",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "dev": "nodemon --exec ts-node ./src/index.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
