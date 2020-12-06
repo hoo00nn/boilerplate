@@ -1,3 +1,4 @@
 client/src/types/api.d.ts
 client/schema.json
+client/.eslintcache
 */**/api.d.ts
