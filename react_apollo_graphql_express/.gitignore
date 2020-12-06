@@ -1,0 +1,3 @@
+client/src/types/api.d.ts
+client/schema.json
+*/**/api.d.ts
